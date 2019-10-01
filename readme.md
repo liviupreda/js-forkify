@@ -1,6 +1,6 @@
 # Recipe Finder App
 
-- Recipe finder build using vanilla JS ES6 and Axios.
+- Recipe finder front end built using vanilla JS ES6 and Axios.
 
 - [Spoonacular API](https://spoonacular.com/food-api/docs) for recipes
 

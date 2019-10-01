@@ -9,9 +9,14 @@ import axios from 'axios';
 
 async function getResults(query, number) {
   const key = 'f46015c488304ae893fde89f7a4baf4d';
-  const result = await axios(
-    `https://api.spoonacular.com/recipes/search?apiKey=${key}&query=${query}&number=${number}`
-  );
-  console.log(result);
+  try {
+    const get = await axios(
+      `https://api.spoonacular.com/recipes/search?apiKey=${key}&query=${query}&number=${number}`
+    );
+    const recipes = get.data.results;
+    console.log(recipes);
+  } catch (error) {
+    console.log(error);
+  }
 }
-getResults('cheese', 1);
+getResults('pizza', 30);
