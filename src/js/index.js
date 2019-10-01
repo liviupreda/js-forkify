@@ -1,26 +1,37 @@
-// Global app controller
-// food2fork.com API key 26541d5659322325bf74270a4bb31ace
-// GET https://www.food2fork.com/api/search
-// https://spoonacular.com/food-api/docs API key f46015c488304ae893fde89f7a4baf4d
-// GET https://api.spoonacular.com/recipes/search
-// import axios from 'axios';
-
-// async function getResults(query, number) {
-//   const key = 'f46015c488304ae893fde89f7a4baf4d';
-//   try {
-//     const get = await axios(
-//       `https://api.spoonacular.com/recipes/search?apiKey=${key}&query=${query}&number=${number}`
-//     );
-//     const recipes = get.data.results;
-//     console.log(recipes);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-// getResults('cheese', 50);
+// -- Global app controller
 
 import Search from './models/Search';
-// Spoonacular API has 10 default results, get 30 results for default search
-const search = new Search('pizza', 30);
-search.getResults();
+
+// -- Global Application state; Init = {}; stores the:
+// - Search object
+// - Current recipe object
+// - Shopping list object
+// - Liked recipes
+const state = {};
+
+// -- Event listeners
+const ctrlSearch = async () => {
+  // Capture search query from view
+  const query = 'pizza'; // TODO
+  // Spoonacular API has 10 default results, get 30 results for default search
+  const resCount = 30; // Query results count
+
+  if (query) {
+    // Create new search object and add it to state
+    state.search = new Search(query, resCount);
+
+    // Show loading spinner in UI
+
+    // Search for recipes
+    await state.search.getResults();
+
+    // Show results in UI
+    console.log(state.search.recipes);
+  }
+};
+
+document.querySelector('.search').addEventListener('submit', e => {
+  // Prevent page from reloading
+  e.preventDefault();
+  ctrlSearch();
+});

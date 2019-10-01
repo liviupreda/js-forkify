@@ -14,7 +14,6 @@ export default class Search {
         `https://api.spoonacular.com/recipes/search?apiKey=${key}&query=${this.query}&number=${this.number}`
       );
       this.recipes = get.data.results;
-      // console.log(this.recipes);
     } catch (error) {
       console.log(error);
     }
