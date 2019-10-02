@@ -1,6 +1,7 @@
 // -- Global app controller
-
 import Search from './models/Search';
+import * as searchView from './views/searchView';
+import { elements } from './views/base';
 
 // -- Global Application state; Init = {}; stores the:
 // - Search object
@@ -12,9 +13,11 @@ const state = {};
 // -- Event listeners
 const ctrlSearch = async () => {
   // Capture search query from view
-  const query = 'pizza'; // TODO
-  // Spoonacular API has 10 default results, get 30 results for default search
-  const resCount = 30; // Query results count
+  const query = searchView.getInput(); // TODO
+  console.log(query);
+  // Spoonacular API has 10 default results,
+  // get 30 query results
+  const resCount = 30;
 
   if (query) {
     // Create new search object and add it to state
@@ -26,11 +29,12 @@ const ctrlSearch = async () => {
     await state.search.getResults();
 
     // Show results in UI
+    searchView.renderRecipes(state.search.recipes);
     console.log(state.search.recipes);
   }
 };
 
-document.querySelector('.search').addEventListener('submit', e => {
+elements.searchForm.addEventListener('submit', e => {
   // Prevent page from reloading
   e.preventDefault();
   ctrlSearch();
