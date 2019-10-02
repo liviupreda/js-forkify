@@ -1,7 +1,7 @@
 // -- Global app controller
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { elements } from './views/base';
+import { elements, renderSpinner, clearSpinner } from './views/base';
 
 // -- Global Application state; Init = {}; stores the:
 // - Search object
@@ -27,14 +27,18 @@ const ctrlSearch = async () => {
     searchView.clearInput();
     searchView.clearRecipes();
 
-    // Show loading spinner in UI
+    // Show loading spinner and attach it to the
+    // parent div of the ul;
+    renderSpinner(elements.searchResults);
 
     // Search for recipes
     await state.search.getResults();
 
+    // Clear loading spinner
+    clearSpinner();
     // Show results in UI
     searchView.renderRecipes(state.search.recipes);
-    console.log(state.search.recipes);
+    // console.log(state.search.recipes);
   }
 };
 

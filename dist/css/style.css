@@ -180,11 +180,13 @@ body {
   color: #968b87;
 }
 
-.loader {
+/* .loader  */
+.spinner {
   margin: 5rem auto;
   text-align: center;
 }
-.loader svg {
+/* .loader  */
+.spinner svg {
   height: 5.5rem;
   width: 5.5rem;
   fill: #f59a83;
