@@ -23,6 +23,10 @@ const ctrlSearch = async () => {
     // Create new search object and add it to state
     state.search = new Search(query, resCount);
 
+    // Clear input and results column for new search
+    searchView.clearInput();
+    searchView.clearRecipes();
+
     // Show loading spinner in UI
 
     // Search for recipes

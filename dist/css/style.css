@@ -347,7 +347,8 @@ body {
   font-weight: 600;
   margin-bottom: 0.3rem;
 }
-.results__author,
+/* .results__author, */
+.results__readyin,
 .likes__author {
   font-size: 1.1rem;
   color: #968b87;

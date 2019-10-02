@@ -2,6 +2,14 @@ import { elements } from './base';
 
 // Return value of the search input field
 export const getInput = () => elements.searchInput.value;
+// Clear input
+export const clearInput = () => {
+  elements.searchInput.value = '';
+};
+
+export const clearRecipes = () => {
+  elements.searchResultsUl.innerHTML = '';
+};
 
 // Function for printing 1 recipe per call
 const renderRecipe = result => {
