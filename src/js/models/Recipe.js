@@ -18,9 +18,9 @@ export default class Recipe {
       this.url = result.data.sourceUrl;
       this.ingredients = result.data.extendedIngredients;
       this.duration = result.data.readyInMinutes;
-      this.servings = 6;
-      //     console.log(result);
+      this.servings = result.data.servings;
     } catch (err) {
+      console.log('Something went wrong while processing data');
       console.log(err);
     }
   }
