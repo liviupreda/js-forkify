@@ -17,8 +17,8 @@ const state = {};
 
 const ctrlSearch = async () => {
   // Capture search query from view
-  const query = searchView.getInput(); // TODO
-
+  // const query = searchView.getInput(); // TODO
+  const query = 'pizza'; // ---------------- for TEST purposes
   if (query) {
     // Create new search object and add it to state
     state.search = new Search(query);
@@ -82,11 +82,14 @@ const ctrlRecipe = async () => {
 
     // Create current recipe object and store it in the state
     state.recipe = new Recipe(id);
+    window.r = state.recipe; // ---------------- for TEST purposes
     try {
       // Get recipe data
-      // ---------------- await state.recipe.getRecipe();
-      // Show recipe details
+      await state.recipe.getRecipe();
       console.log(state.recipe);
+      // Show recipe details
+      // Show recipe ingredients array
+      // state.recipe.parseIngredients();
     } catch (err) {
       console.log('Get recipe error');
       console.log(err);
@@ -95,5 +98,5 @@ const ctrlRecipe = async () => {
 };
 
 window.addEventListener('hashchange', ctrlRecipe); // #[id]
-window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
+// window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
 //['hashchange', 'load'].forEach(e => window.addEventListener(event, ctrlRecipe);)

@@ -13,15 +13,30 @@ export default class Recipe {
         `https://api.spoonacular.com/recipes/${this.id}/information?apiKey=${key}&includeNutrition=false`
       );
       this.title = result.data.title;
-      this.source = result.data.sourceName;
       this.img = result.data.image;
+      this.duration = result.data.readyInMinutes;
+      this.source = result.data.sourceName;
       this.url = result.data.sourceUrl;
       this.ingredients = result.data.extendedIngredients;
-      this.duration = result.data.readyInMinutes;
       this.servings = result.data.servings;
     } catch (err) {
       console.log('Something went wrong while processing data');
       console.log(err);
     }
+  }
+
+  parseIngredients() {
+    // Parse ingredients into count, unit and ingredient name
+    // i.e. '1 kg cherry tomatoes'
+    let parsedIngredients = [];
+    this.ingredients.forEach(element => {
+      parsedIngredients.push(
+        `${
+          element.measures.metric.amount
+        } ${element.measures.metric.unitShort.toLowerCase()} ${element.name}`
+      );
+    });
+    // Replace ingredients array in the Recipe object with the parsed values
+    this.ingredients = parsedIngredients;
   }
 }
