@@ -1,5 +1,6 @@
 // -- Global app controller
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import { elements, showSpinner, clearSpinner } from './views/base';
 
@@ -9,6 +10,10 @@ import { elements, showSpinner, clearSpinner } from './views/base';
 // - Shopping list object
 // - Liked recipes
 const state = {};
+
+/*-------------------
+  SEARCH CONTROLLER
+-------------------*/
 
 // -- Event listeners
 const ctrlSearch = async () => {
@@ -58,3 +63,10 @@ elements.searchResultsPages.addEventListener('click', e => {
     searchView.showRecipes(state.search.recipes, goToPage);
   }
 });
+
+/*-------------------
+  RECIPE CONTROLLER
+-------------------*/
+const res = new Recipe(559251);
+// res.getRecipe();
+console.log(res);

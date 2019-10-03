@@ -1,5 +1,6 @@
 // Import Axios package for HTTP requests, JSON conversion and error handling
 import axios from 'axios';
+import { key } from '../config';
 
 export default class Search {
   // get 30 query results by default
@@ -9,7 +10,6 @@ export default class Search {
   }
 
   async getResults() {
-    const key = 'f46015c488304ae893fde89f7a4baf4d';
     try {
       const get = await axios(
         `https://api.spoonacular.com/recipes/search?apiKey=${key}&query=${this.query}&number=${this.number}`
