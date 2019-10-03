@@ -131,3 +131,19 @@
 //   // console.log(units);
 //   // console.log(ingredientNames);
 // }
+
+// parseIngredients 2
+// parseIngredients() {
+//   // Parse ingredients into count, unit and ingredient name
+//   // i.e. '1 kg cherry tomatoes'
+//   let parsedIngredients = [];
+//   this.ingredients.forEach(element => {
+//     parsedIngredients.push(
+//       `${
+//         element.measures.metric.amount
+//       } ${element.measures.metric.unitShort.toLowerCase()} ${element.name}`
+//     );
+//   });
+//   // Replace ingredients array in the Recipe object with the parsed values
+//   this.ingredients = parsedIngredients;
+// }

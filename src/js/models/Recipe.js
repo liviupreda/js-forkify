@@ -27,16 +27,16 @@ export default class Recipe {
 
   parseIngredients() {
     // Parse ingredients into count, unit and ingredient name
-    // i.e. '1 kg cherry tomatoes'
-    let parsedIngredients = [];
+    let amounts = [];
+    let units = [];
+    let ingredientNames = [];
     this.ingredients.forEach(element => {
-      parsedIngredients.push(
-        `${
-          element.measures.metric.amount
-        } ${element.measures.metric.unitShort.toLowerCase()} ${element.name}`
-      );
+      amounts.push(element.measures.metric.amount);
+      units.push(element.measures.metric.unitShort.toLowerCase());
+      ingredientNames.push(element.name);
     });
-    // Replace ingredients array in the Recipe object with the parsed values
-    this.ingredients = parsedIngredients;
+    console.log(amounts);
+    console.log(units);
+    console.log(ingredientNames);
   }
 }

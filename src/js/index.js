@@ -17,8 +17,8 @@ const state = {};
 
 const ctrlSearch = async () => {
   // Capture search query from view
-  // const query = searchView.getInput(); // TODO
-  const query = 'pizza'; // ---------------- for TEST purposes
+  const query = searchView.getInput();
+  // const query = 'pizza'; // ---------------- for TEST purposes
   if (query) {
     // Create new search object and add it to state
     state.search = new Search(query);
