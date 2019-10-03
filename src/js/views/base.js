@@ -2,7 +2,8 @@ export const elements = {
   searchForm: document.querySelector('.search'),
   searchInput: document.querySelector('.search__field'),
   searchResults: document.querySelector('.results__list').parentElement,
-  searchResultsUl: document.querySelector('.results__list')
+  searchResultsUl: document.querySelector('.results__list'),
+  searchResultsPages: document.querySelector('.results__pages')
 };
 
 export const elementStrings = {
@@ -11,7 +12,7 @@ export const elementStrings = {
 
 // Loading spinner
 // Appears in .results and .recipe HTML classes
-export const renderSpinner = parentElement => {
+export const showSpinner = parentElement => {
   const spinner = `
     <div class="${elementStrings.spinner}">
       <svg>

@@ -1,7 +1,7 @@
 // -- Global app controller
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { elements, renderSpinner, clearSpinner } from './views/base';
+import { elements, showSpinner, clearSpinner } from './views/base';
 
 // -- Global Application state; Init = {}; stores the:
 // - Search object
@@ -14,14 +14,10 @@ const state = {};
 const ctrlSearch = async () => {
   // Capture search query from view
   const query = searchView.getInput(); // TODO
-  console.log(query);
-  // Spoonacular API has 10 default results,
-  // get 30 query results
-  const resCount = 30;
 
   if (query) {
     // Create new search object and add it to state
-    state.search = new Search(query, resCount);
+    state.search = new Search(query);
 
     // Clear input and results column for new search
     searchView.clearInput();
@@ -29,7 +25,7 @@ const ctrlSearch = async () => {
 
     // Show loading spinner and attach it to the
     // parent div of the ul;
-    renderSpinner(elements.searchResults);
+    showSpinner(elements.searchResults);
 
     // Search for recipes
     await state.search.getResults();
@@ -37,7 +33,7 @@ const ctrlSearch = async () => {
     // Clear loading spinner
     clearSpinner();
     // Show results in UI
-    searchView.renderRecipes(state.search.recipes);
+    searchView.showRecipes(state.search.recipes);
     // console.log(state.search.recipes);
   }
 };
@@ -46,4 +42,19 @@ elements.searchForm.addEventListener('submit', e => {
   // Prevent page from reloading
   e.preventDefault();
   ctrlSearch();
+});
+
+// Event listener for page navigation buttons; Event delegation
+elements.searchResultsPages.addEventListener('click', e => {
+  // Clicking on the span or svg icon of the button will return
+  // the closest ancestor with the class '.btn-inline' i.e. the page button
+  // clicking on the '.results__pages' div will return NULL
+  const btn = e.target.closest('.btn-inline');
+  if (btn) {
+    // Read the data-goto attribute in the showButton HTML
+    // Returns a string => convert to decimal number (radix 10)
+    const goToPage = parseInt(btn.dataset.goto, 10);
+    searchView.clearRecipes();
+    searchView.showRecipes(state.search.recipes, goToPage);
+  }
 });

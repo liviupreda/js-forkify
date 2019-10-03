@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 export default class Search {
-  constructor(query, number) {
+  // get 30 query results by default
+  constructor(query, number = 30) {
     this.query = query;
     this.number = number;
   }

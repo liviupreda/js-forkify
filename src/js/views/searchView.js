@@ -9,6 +9,8 @@ export const clearInput = () => {
 
 export const clearRecipes = () => {
   elements.searchResultsUl.innerHTML = '';
+  // Clear page navigation buttons
+  elements.searchResultsPages.innerHTML = '';
 };
 
 // Limits the recipe title to one line, followed by '(...)'
@@ -30,7 +32,7 @@ const shortenTitle = (title, limit = 15) => {
 };
 
 // Function for printing 1 recipe per call
-const renderRecipe = result => {
+const showRecipe = result => {
   const html = `
   <li>
     <a class="results__link" href="#${result.id}">
@@ -50,5 +52,50 @@ const renderRecipe = result => {
   elements.searchResultsUl.insertAdjacentHTML('beforeend', html);
 };
 
-// Print recipes in the left-hand column of the UI
-export const renderRecipes = results => results.forEach(renderRecipe);
+// We will show either prev, next or both buttons depending on the type arg
+// type = 'prev' or 'next'
+const showButton = (page, type) => `
+<button class="btn-inline results__btn--${type}" data-goto = ${
+  type === 'prev' ? page - 1 : page + 1
+}>
+  <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+  <svg class="search__icon">
+    <use href="img/icons.svg#icon-triangle-${
+      type === 'prev' ? 'left' : 'right'
+    }"></use>
+  </svg>
+</button>
+`;
+
+const showPageButtons = (page, numResults, resultsPerPage) => {
+  // Round up in case numPages != int
+  const numPages = Math.ceil(numResults / resultsPerPage);
+  let button;
+
+  if (page === 1 && numPages > 1) {
+    // Show only button for next page
+    button = showButton(page, 'next');
+  } else if (page < numPages) {
+    // Show both next and prev buttons
+    button = `
+      ${showButton(page, 'prev')}
+      ${showButton(page, 'next')}
+    `;
+  } else if (page === numPages && numPages > 1) {
+    // Show only button for previous page
+    button = showButton(page, 'prev');
+  }
+  elements.searchResultsPages.insertAdjacentHTML('afterbegin', button);
+};
+
+// Show recipes in the left-hand column of the UI
+// Max 10 results per page
+export const showRecipes = (results, page = 1, resultsPerPage = 10) => {
+  const begin = (page - 1) * resultsPerPage;
+  const end = page * resultsPerPage;
+
+  results.slice(begin, end).forEach(showRecipe);
+
+  // Show page navigation buttons
+  showPageButtons(page, results.length, resultsPerPage);
+};
