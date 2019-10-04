@@ -2,6 +2,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { elements, showSpinner, clearSpinner } from './views/base';
 
 // -- Global Application state; Init = {}; stores the:
