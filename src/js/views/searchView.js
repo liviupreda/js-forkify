@@ -13,6 +13,20 @@ export const clearRecipes = () => {
   elements.searchResultsPages.innerHTML = '';
 };
 
+// <a class="results__link" href="# 601651">
+// Select link with id in order to highlight
+// the recipe we click on in the Search View
+export const highlightSelected = id => {
+  const arrResults = Array.from(document.querySelectorAll('.results__link'));
+  arrResults.forEach(e => {
+    // When selecting a new search result, remove active class from all others
+    e.classList.remove('results__link--active');
+  });
+  document
+    .querySelector(`a[href="#${id}"]`)
+    .classList.add('results__link--active');
+};
+
 // Limits the recipe title to one line, followed by '(...)'
 // default limit parameter is 15 characters (otherwise the three dots
 // are displayed on a second line in my browser at 100% size)

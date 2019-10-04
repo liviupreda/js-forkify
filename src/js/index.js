@@ -84,6 +84,12 @@ const ctrlRecipe = async () => {
     recipeView.clearRecipe();
     showSpinner(elements.recipeMain);
 
+    // Highlight selected ingredient in search view
+    // Only works if there was an actual search
+    if (state.search) {
+      searchView.highlightSelected(id);
+    }
+
     // Create current recipe object and store it in the state
     state.recipe = new Recipe(id);
     window.r = state.recipe; // ---------------- for TEST purposes
