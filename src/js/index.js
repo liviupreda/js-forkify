@@ -80,6 +80,9 @@ const ctrlRecipe = async () => {
 
   if (id) {
     // Init UI
+    // clear recipeMain
+    recipeView.clearRecipe();
+    showSpinner(elements.recipeMain);
 
     // Create current recipe object and store it in the state
     state.recipe = new Recipe(id);
@@ -88,9 +91,13 @@ const ctrlRecipe = async () => {
       // Get recipe data
       await state.recipe.getRecipe();
       console.log(state.recipe);
-      // Show recipe details
+
       // Show recipe ingredients array
-      // state.recipe.parseIngredients();
+      //state.recipe.parseIngredients();
+
+      // Show recipe details in UI
+      clearSpinner();
+      recipeView.showRecipe(state.recipe);
     } catch (err) {
       console.log('Get recipe error');
       console.log(err);
@@ -100,4 +107,4 @@ const ctrlRecipe = async () => {
 
 window.addEventListener('hashchange', ctrlRecipe); // #[id]
 // window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
-//['hashchange', 'load'].forEach(e => window.addEventListener(event, ctrlRecipe);)
+// ['hashchange', 'load'].forEach(e => window.addEventListener(e, ctrlRecipe));

@@ -25,18 +25,18 @@ export default class Recipe {
     }
   }
 
-  parseIngredients() {
-    // Parse ingredients into count, unit and ingredient name
-    let amounts = [];
-    let units = [];
-    let ingredientNames = [];
-    this.ingredients.forEach(element => {
-      amounts.push(element.measures.metric.amount);
-      units.push(element.measures.metric.unitShort.toLowerCase());
-      ingredientNames.push(element.name);
-    });
-    console.log(amounts);
-    console.log(units);
-    console.log(ingredientNames);
-  }
+  // parseIngredients() {
+  //   // Parse ingredients into count, unit and ingredient name
+  //   let amounts = [];
+  //   let units = [];
+  //   let ingredientNames = [];
+  //   this.ingredients.forEach(element => {
+  //     amounts.push(element.measures.metric.amount);
+  //     units.push(element.measures.metric.unitShort.toLowerCase());
+  //     ingredientNames.push(element.name);
+  //   });
+  //   console.log(amounts);
+  //   console.log(units);
+  //   console.log(ingredientNames);
+  // }
 }
