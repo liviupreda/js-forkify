@@ -96,7 +96,7 @@ const ctrlRecipe = async () => {
     try {
       // Get recipe data
       await state.recipe.getRecipe();
-      console.log(state.recipe);
+      // console.log(state.recipe);
 
       // Show recipe ingredients array
       //state.recipe.parseIngredients();
@@ -111,6 +111,24 @@ const ctrlRecipe = async () => {
   }
 };
 
-window.addEventListener('hashchange', ctrlRecipe); // #[id]
+// window.addEventListener('hashchange', ctrlRecipe); // #[id]
 // window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
-// ['hashchange', 'load'].forEach(e => window.addEventListener(e, ctrlRecipe));
+['hashchange', 'load'].forEach(e => window.addEventListener(e, ctrlRecipe));
+
+// Recipe button clicks (update servings, like button etc.)
+elements.recipeMain.addEventListener('click', e => {
+  // * any child
+  if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+    // Decrease button is clicked
+    if (state.recipe.servings > 1) {
+      state.recipe.updateServings('decrease');
+      recipeView.updateServings(state.recipe);
+    }
+  } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+    // Increase button is clicked
+    state.recipe.updateServings('increase');
+    recipeView.updateServings(state.recipe);
+  }
+
+  console.log(state.recipe);
+});
