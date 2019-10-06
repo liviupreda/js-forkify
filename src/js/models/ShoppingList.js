@@ -19,7 +19,6 @@ export default class ShoppingList {
     return item;
   }
 
-  // TODO
   deleteListItem(id) {
     const index = this.items.findIndex(e => e.id === id);
     // [2, 4, 8] splice(1 = start index, 2 = how many elements to splice)

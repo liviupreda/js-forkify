@@ -5,7 +5,21 @@ export const elements = {
   searchResultsUl: document.querySelector('.results__list'),
   searchResultsPages: document.querySelector('.results__pages'),
   recipeMain: document.querySelector('.recipe'),
-  recipeUL: document.querySelector('.recipe__ingredient-list')
+  recipeUL: document.querySelector('.recipe__ingredient-list'),
+  shoppingUL: document.querySelector('.shopping__list')
+};
+
+// Future proof the code in case Spoonacular changes the API structure
+export const apiItems = {
+  title: 'result.data.title',
+  image: 'result.data.image',
+  duration: 'result.data.readyInMinutes',
+  source: 'result.data.sourceName',
+  url: 'result.data.sourceUrl',
+  ingredients: 'result.data.extendedIngredients',
+  servings: 'result.data.servings',
+  amount: 'measures.metric.amount',
+  unit: 'measures.metric.unitShort.toLowerCase()'
 };
 
 export const elementStrings = {

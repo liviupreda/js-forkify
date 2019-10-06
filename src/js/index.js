@@ -4,7 +4,8 @@ import Recipe from './models/Recipe';
 import ShoppingList from './models/ShoppingList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
-import { elements, showSpinner, clearSpinner } from './views/base';
+import * as listView from './views/shoppingListView';
+import { elements, showSpinner, clearSpinner, apiItems } from './views/base';
 
 // -- Global Application state; Init = {}; stores the:
 // - Search object
@@ -112,11 +113,34 @@ const ctrlRecipe = async () => {
   }
 };
 
+/*-----------------------------
+  SHOPPING LIST CONTROLLER
+-----------------------------*/
+
+const ctrlShoppingList = () => {
+  // Create a new shopping list IF there is none
+  if (!state.shopList) state.shopList = new ShoppingList();
+
+  // Add each ingredient to the list and UI
+  state.recipe.ingredients.forEach(e => {
+    const item = state.shopList.addListItem(
+      e.measures.metric.amount,
+      e.measures.metric.unitShort.toLowerCase(),
+      e.name
+    );
+    listView.showListItem(item);
+  });
+};
+
+/*-------------------
+  EVENT LISTENERS
+-------------------*/
+
 // window.addEventListener('hashchange', ctrlRecipe); // #[id]
 // window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
 ['hashchange', 'load'].forEach(e => window.addEventListener(e, ctrlRecipe));
 
-// Recipe button clicks (update servings, like button etc.)
+// Recipe button clicks (update servings, add to shopping list, like button)
 elements.recipeMain.addEventListener('click', e => {
   // * any child
   if (e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -129,7 +153,10 @@ elements.recipeMain.addEventListener('click', e => {
     // Increase button is clicked
     state.recipe.updateServings('increase');
     recipeView.updateServings(state.recipe);
+  } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    // Add to shopping list button is clicked
+    ctrlShoppingList();
   }
 });
 
-window.l = new ShoppingList();
+window.l = new ShoppingList(); // ------ TEST
