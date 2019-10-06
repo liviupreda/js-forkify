@@ -13,6 +13,7 @@ import { elements, showSpinner, clearSpinner, apiItems } from './views/base';
 // - Shopping list object
 // - Liked recipes
 const state = {};
+window.state = state; //-----------TEST
 
 /*-------------------
   SEARCH CONTROLLER
@@ -131,6 +132,26 @@ const ctrlShoppingList = () => {
     listView.showListItem(item);
   });
 };
+
+// Handle delete and update list item events
+elements.shoppingUL.addEventListener('click', e => {
+  const id = e.target.closest('.shopping__item').dataset.itemid;
+
+  // Handle delete button
+  if (e.target.matches('.shopping__delete, .shopping__delete *')) {
+    // Delete from state
+    state.shopList.deleteListItem(id);
+    // Delete from UI
+    listView.clearListItem(id);
+
+    // Handle amount update
+  } else if (e.target.matches('.shopping__count-value')) {
+    const amount = parseFloat(e.target.value, 10);
+    amount > 0
+      ? state.shopList.updateAmount(id, amount)
+      : state.shopList.updateAmount(id, 0);
+  }
+});
 
 /*-------------------
   EVENT LISTENERS
