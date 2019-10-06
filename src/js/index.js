@@ -1,6 +1,7 @@
 // -- Global app controller
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import ShoppingList from './models/ShoppingList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import { elements, showSpinner, clearSpinner } from './views/base';
@@ -129,6 +130,6 @@ elements.recipeMain.addEventListener('click', e => {
     state.recipe.updateServings('increase');
     recipeView.updateServings(state.recipe);
   }
-
-  console.log(state.recipe);
 });
+
+window.l = new ShoppingList();
