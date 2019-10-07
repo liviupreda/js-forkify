@@ -5,7 +5,9 @@ import ShoppingList from './models/ShoppingList';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/shoppingListView';
+import * as likesView from './views/likesView';
 import { elements, showSpinner, clearSpinner, apiItems } from './views/base';
+import Likes from './models/Likes';
 
 // -- Global Application state; Init = {}; stores the:
 // - Search object
@@ -99,14 +101,9 @@ const ctrlRecipe = async () => {
     try {
       // Get recipe data
       await state.recipe.getRecipe();
-      // console.log(state.recipe);
-
-      // Show recipe ingredients array
-      //state.recipe.parseIngredients();
-
       // Show recipe details in UI
       clearSpinner();
-      recipeView.showRecipe(state.recipe);
+      recipeView.showRecipe(state.recipe, state.likes.hasLike(id));
     } catch (err) {
       console.log('Get recipe error');
       console.log(err);
@@ -154,11 +151,43 @@ elements.shoppingUL.addEventListener('click', e => {
 });
 
 /*-------------------
+  LIKES CONTROLLER
+-------------------*/
+// -- TEST: add new like property to state whenever loading the page
+state.likes = new Likes();
+
+const ctrlLike = () => {
+  if (!state.likes) state.likes = new Likes();
+  const curID = state.recipe.id;
+
+  // Current recipe has like or not? (initially NO)
+  if (!state.likes.hasLike(curID)) {
+    // Add Like to state
+    const newLike = state.likes.addLike(
+      curID,
+      state.recipe.title,
+      state.recipe.duration,
+      state.recipe.img
+    );
+    // Toggle Like button
+    likesView.toggleLikeBtn(true);
+    // Add Like to UI Likes list
+    console.log(state.likes);
+    // Current recipe has like or not? (YES)
+  } else {
+    // Remove Like from state -- toggle Like button
+    state.likes.deleteLike(curID);
+    // Toggle Like button
+    likesView.toggleLikeBtn(false);
+    // Remove Like from UI Likes list
+    console.log(state.likes);
+  }
+};
+
+/*-------------------
   EVENT LISTENERS
 -------------------*/
 
-// window.addEventListener('hashchange', ctrlRecipe); // #[id]
-// window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
 ['hashchange', 'load'].forEach(e => window.addEventListener(e, ctrlRecipe));
 
 // Recipe button clicks (update servings, add to shopping list, like button)
@@ -177,6 +206,9 @@ elements.recipeMain.addEventListener('click', e => {
   } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
     // Add to shopping list button is clicked
     ctrlShoppingList();
+  } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+    // Like button clicked
+    ctrlLike();
   }
 });
 

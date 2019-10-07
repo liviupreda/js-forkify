@@ -163,3 +163,6 @@
 //   console.log(units);
 //   console.log(ingredientNames);
 // }
+
+// window.addEventListener('hashchange', ctrlRecipe); // #[id]
+// window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded

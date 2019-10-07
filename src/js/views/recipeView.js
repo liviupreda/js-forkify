@@ -18,7 +18,7 @@ const createIngredient = ingredient => `
         </div>
     </li>   
 `;
-export const showRecipe = result => {
+export const showRecipe = (result, hasLike) => {
   const html = `
   <figure class="recipe__fig">
     <img src="${result.img}" alt="${result.title}" class="recipe__img">
@@ -62,7 +62,9 @@ export const showRecipe = result => {
       </div>
   <button class="recipe__love">
       <svg class="header__likes">
-          <use href="img/icons.svg#icon-heart-outlined"></use>
+          <use href="img/icons.svg#icon-heart${
+            hasLike ? '' : '-outlined'
+          }"></use>
       </svg>
   </button>
 </div>
