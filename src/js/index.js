@@ -15,7 +15,6 @@ import Likes from './models/Likes';
 // - Shopping list object
 // - Liked recipes
 const state = {};
-window.state = state; //-----------TEST
 
 /*-------------------
   SEARCH CONTROLLER
@@ -24,7 +23,6 @@ window.state = state; //-----------TEST
 const ctrlSearch = async () => {
   // Capture search query from view
   const query = searchView.getInput();
-  // const query = 'pizza'; // ---------------- for TEST purposes
   if (query) {
     // Create new search object and add it to state
     state.search = new Search(query);
@@ -221,5 +219,3 @@ elements.recipeMain.addEventListener('click', e => {
     ctrlLike();
   }
 });
-
-window.l = new ShoppingList(); // ------ TEST

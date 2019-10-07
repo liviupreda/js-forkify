@@ -166,3 +166,7 @@
 
 // window.addEventListener('hashchange', ctrlRecipe); // #[id]
 // window.addEventListener('load', ctrlRecipe); // fires whenever the window is loaded
+
+// window.state = state; //-----------TEST
+// const query = 'pizza'; // ---------------- for TEST purposes
+// window.l = new ShoppingList(); // ------ TEST
