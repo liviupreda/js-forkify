@@ -153,10 +153,6 @@ elements.shoppingUL.addEventListener('click', e => {
 /*-------------------
   LIKES CONTROLLER
 -------------------*/
-// -- TEST: add new like property to state whenever loading the page
-state.likes = new Likes();
-likesView.toggleLikeMenu(state.likes.getLikesNumber());
-
 const ctrlLike = () => {
   if (!state.likes) state.likes = new Likes();
   const curID = state.recipe.id;
@@ -186,6 +182,17 @@ const ctrlLike = () => {
 
   likesView.toggleLikeMenu(state.likes.getLikesNumber());
 };
+
+// Restore liked recipes from LS on page load
+window.addEventListener('load', () => {
+  state.likes = new Likes();
+  // Restore likes
+  state.likes.readStorage();
+  // Toggle like menu button
+  likesView.toggleLikeMenu(state.likes.getLikesNumber());
+  // Show existing likes in UI
+  state.likes.likes.forEach(like => likesView.showLikes(like));
+});
 
 /*-------------------
   EVENT LISTENERS
