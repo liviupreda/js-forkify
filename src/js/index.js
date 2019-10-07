@@ -155,6 +155,7 @@ elements.shoppingUL.addEventListener('click', e => {
 -------------------*/
 // -- TEST: add new like property to state whenever loading the page
 state.likes = new Likes();
+likesView.toggleLikeMenu(state.likes.getLikesNumber());
 
 const ctrlLike = () => {
   if (!state.likes) state.likes = new Likes();
@@ -172,7 +173,7 @@ const ctrlLike = () => {
     // Toggle Like button
     likesView.toggleLikeBtn(true);
     // Add Like to UI Likes list
-    console.log(state.likes);
+    likesView.showLikes(newLike);
     // Current recipe has like or not? (YES)
   } else {
     // Remove Like from state -- toggle Like button
@@ -180,8 +181,10 @@ const ctrlLike = () => {
     // Toggle Like button
     likesView.toggleLikeBtn(false);
     // Remove Like from UI Likes list
-    console.log(state.likes);
+    likesView.deleteLike(curID);
   }
+
+  likesView.toggleLikeMenu(state.likes.getLikesNumber());
 };
 
 /*-------------------

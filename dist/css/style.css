@@ -351,7 +351,7 @@ body {
 }
 /* .results__author, */
 .results__readyin,
-.likes__author {
+.likes__duration {
   font-size: 1.1rem;
   color: #968b87;
   text-transform: uppercase;

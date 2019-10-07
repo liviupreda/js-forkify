@@ -6,7 +6,9 @@ export const elements = {
   searchResultsPages: document.querySelector('.results__pages'),
   recipeMain: document.querySelector('.recipe'),
   recipeUL: document.querySelector('.recipe__ingredient-list'),
-  shoppingUL: document.querySelector('.shopping__list')
+  shoppingUL: document.querySelector('.shopping__list'),
+  likesMenu: document.querySelector('.likes__field'),
+  likesUL: document.querySelector('.likes__list')
 };
 
 // Future proof the code in case Spoonacular changes the API structure

@@ -23,14 +23,14 @@ export const highlightSelected = id => {
     e.classList.remove('results__link--active');
   });
   document
-    .querySelector(`a[href="#${id}"]`)
+    .querySelector(`.results__link[href*="#${id}"]`)
     .classList.add('results__link--active');
 };
 
 // Limits the recipe title to one line, followed by '(...)'
 // default limit parameter is 15 characters (otherwise the three dots
 // are displayed on a second line in my browser at 100% size)
-const shortenTitle = (title, limit = 15) => {
+export const shortenTitle = (title, limit = 15) => {
   const shortTitle = [];
   if (title.length > limit) {
     title.split(' ').reduce((acc, cur) => {
